@@ -11,15 +11,15 @@ export const configSchema = z.object({
 })
 
 // Smithery 배포 형식: createServer 함수를 default export
-export default function createServer({ config }: { config: z.infer<typeof configSchema> }) {
+export default function createServer({ config }: { config?: z.infer<typeof configSchema> } = {}) {
     // Create server instance
     const server = new McpServer({
         name: 'mcp-server-251215',
         version: '1.0.0'
     })
 
-    // Initialize Hugging Face Inference Client
-    const hfClient = new InferenceClient(config.hfToken || '')
+    // Initialize Hugging Face Inference Client (config가 없을 수 있음)
+    const hfClient = new InferenceClient(config?.hfToken || '')
 
     server.registerTool(
         'greet',
@@ -628,7 +628,7 @@ ${languageContext}
         },
         async ({ prompt }) => {
             try {
-                if (!config.hfToken) {
+                if (!config?.hfToken) {
                     throw new Error('hfToken 설정이 필요합니다. Smithery 설정에서 Hugging Face 토큰을 입력해주세요.')
                 }
 
