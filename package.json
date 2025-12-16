@@ -26,6 +26,7 @@
     "dependencies": {
         "@huggingface/inference": "^4.13.5",
         "@modelcontextprotocol/sdk": "^1.24.3",
+        "@smithery/sdk": "^2.1.0",
         "zod": "^3.25.46"
     },
     "devDependencies": {
